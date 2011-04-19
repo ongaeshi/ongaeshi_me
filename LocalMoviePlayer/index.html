@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)http://d2o0t5hpnwv4c1.cloudfront.net/373_html5/final/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Local Movie Player</title>
+    <link rel="stylesheet" href="css/master.css" type="text/css" media="screen">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="js/MyLib.js"></script>
+    <script type="text/javascript" src="js/MovieLib.js"></script>
+    <script type="text/javascript" src="js/LocalStorage.js"></script>
+    <script type="text/javascript" src="js/LoadImage.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </head>
+  <body>
+
+    <header>
+      <h1>Local Movie Player</h1>
+    </header>
+
+    <section>
+      <div id="viewArea">
+        <video id="myVideo" width="640" height="360" controls>
+          <source src="./movie/nc29626_short.webm" type='video/webm; codecs="vp8, vorbis"' />
+          <source src="./movie/nc29626_short.ogv" type='video/ogg; codecs="theora, vorbis"' />
+          <source src="./movie/nc29626_short.mp4" type="video/mp4" />
+          <p>HTML5のvideoに対応したブラウザをご利用下さい</p>
+        </video>
+      </div>
+      <button id="capture_button" onclick="record_button_click()">capture</button>
+      <button id="clear_button" onclick="clear_button_click()">clear</button>
+    </section>
+
+    <div id="content">
+      <section id="comments">
+        <h3>Captures</h3>
+<!--         <article> -->
+<!--           <header> -->
+<!-- 	    <a href="#">capture on <time datetime="">13.001934051513672</time></a> -->
+<!--             <canvas width="355" height="200"></canvas> -->
+<!--             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p> -->
+<!--           </header> -->
+<!--         </article> -->
+        
+<!--         <article> -->
+<!--           <header> -->
+<!-- 	    <a href="#">capture</a> on <time datetime=""></time> -->
+<!--           </header> -->
+<!--           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p> -->
+<!--         </article> -->
+        
+<!--         <article> -->
+<!--           <header> -->
+<!-- 	    <a href="#">capture</a> on <time datetime=""></time> -->
+<!--           </header> -->
+<!--           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p> -->
+<!--         </article> -->
+      </section>
+    </div>
+
+    <footer>
+      <div>
+        <section id="about">
+        </section>
+      </div>
+    </footer>
+
+</body></html>
