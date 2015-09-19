@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+	<meta charset="utf-8">
+
+	<title>Groongaのテーブル構築をRubyでもっと簡単に書けるgrn_mini</title>
+
+	<meta name="description" content="grn_miniを使うとRubyを使ってGroongaのテーブル構築を簡単に書くことが出来ます">
+	<meta name="author" content="ongaeshi">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="css/reveal.min.css">
+	<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+	<!-- For syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+	<script>
+	  if( window.location.search.match( /print-pdf/gi ) ) {
+	  var link = document.createElement( 'link' );
+	  link.rel = 'stylesheet';
+	  link.type = 'text/css';
+	  link.href = 'css/print/pdf.css';
+	  document.getElementsByTagName( 'head' )[0].appendChild( link );
+	  }
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+  </head>
+
+  <body>
+
+	<div class="reveal">
+
+	  <!-- Any section element inside of this container is displayed as a slide -->
+	  <div class="slides">
+        <section data-markdown>
+          <script type="text/template">
+            # grn_mini
+            ## Groongaのテーブル構築をRubyでもっと簡単に
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 自己紹介
+
+            ![logo](http://www.gravatar.com/avatar/6377451175704e2d367ce508bffc1fa5)
+            おんがえし ([http://ongaeshi.me/](http://ongaeshi.me/))
+
+            - Groonga(Rroonga)を使って色々作っています
+            - Milkode
+              - ソースコード検索エンジン
+            - Honyomi
+              - 電子書籍検索エンジン
+
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 色々と作った結果として・・
+
+            - Rroonga便利！超速い！
+              - 100万レコード位追加しても高速に検索出来る
+              - 他のストレージエンジンのインストールが不要
+            - 反面
+              - 大変な所も分かってきた
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Rroongaの大変な所 - カラム設定
+
+            - Rubyのデータ型に対応するGroongaのカラム型を調べながら適切な型を指定する必要がある
+            - どれが正しいのか分かりにくい
+            - 他のテーブルやベクター型はどうやって渡す？
+
+            ```ruby
+schema.create_table("Documents", :type => :hash) do |table|          
+  table.string("path")
+  table.string("package")
+  table.time("timestamp")
+  table.string("suffix")
+end
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Rroongaの大変な所 - インデックス設定
+
+            - 全文検索を行うには別途語彙テーブルを作成する必要がある
+            - テーブル種類や正規化指定、トークナイザーなど複雑
+
+            ```ruby
+schema.create_table("Terms",
+                    :type => :patricia_trie,
+                    :key_normalize => true,
+                    :default_tokenizer => "TokenBigramSplitSymbolAlphaDigit") do |table|
+  table.index("documents.path", :with_position => true)
+  table.index("documents.package", :with_position => true)
+  table.index("documents.suffix", :with_position => true)
+end
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## もっと気軽に
+
+            - 最初は気軽に使いたい
+            - 慣れてきたら細かく設定する
+            - RubyのArrayやHash位簡単に使いたい
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## grn_miniを作ってみた
+
+            - <a href="https://github.com/ongaeshi/grn_mini">https://github.com/ongaeshi/grn_mini</a>
+            - Rroongaにテーブル構築を自動化する薄いラッパーを被せたもの
+            - 生のRroongaオブジェクトも簡単に取得出来るので安心
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## インストール
+            - Rroongaが必要です
+              - [File: install — rroonga - ラングバ](http://ranguba.org/rroonga/ja/file.install.html)
+              - Groongaパッケージを別途インストールすると速いです
+            - grn_mini本体はPure Rubyです
+
+            ```
+            $ gem install grn_mini
+            
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            # 使い方
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## データベースの初期化orロード
+
+            - test.dbが無い時は作成
+            - ある時はロード
+
+            ```ruby
+            require 'grn_mini'
+            GrnMini::create_or_open("test.db")
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## GrnMini::Arrayの作成
+            
+            - テーブル定義不要
+
+            ```ruby
+            array = GrnMini::Array.new
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 要素の追加
+            
+            - 1つ目を追加した時にデータ型を見てカラム種類を決定
+            - 文字列への全文検索用インデックスを自動で貼る
+
+            ```ruby
+            array << {text: "aaa", number: 1} # add()も使えます
+            array << {text: "bbb", number: 2}
+            array.size #=> 2
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 要素の参照
+            - 注意: インデックスは1から
+
+            ```ruby
+            array[1].text   #=> "aaa"
+            array[2].number #=> "2"
+            array[2].attributes #=> {text: "bbb", number: 2}
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 検索
+            - Groongaの[クエリー構文](http://groonga.org/ja/docs/reference/grn_expr/query_syntax.html)を使って高速に検索
+
+            ```ruby
+            # textに"aa"を含むものを探す
+            results = array.select("text:@aa")
+
+            # 検索結果を表示
+            results.each do |record|
+              p record.attributes #=> {text: "aaa", number: 1}
+            end
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 生のRroongaオブジェクトを得る
+            - いざという時に
+
+            ```ruby
+            array.grn  #=> Groonga::Array
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Hashの作成
+            - 文字列で高速にアクセス出来る
+
+            ```ruby
+            hash = GrnMini::Hash.new
+
+            # Add
+            hash["a"] = {text:"aaa", number:1}
+            hash["b"] = {text:"bbb", number:2}
+            hash["c"] = {text:"ccc", number:3}
+
+            # Read
+            hash["b"].text       #=> "bbb"
+
+            # Write
+            hash["b"].text = "BBB"
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            # まとめ
+            - GrnMiniを使うとGroongaのArrayやHashをRuby標準と同じ感覚で使える
+            - GroongaのArrayやHashは検索速度がとても速い
+            - 追加したデータはデータベースファイルに永続化される
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            # 応用編
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## tmpdb
+            - 実験的にデータベースを作ってプログラム終了時に削除する
+
+            ```ruby
+            GrnMini::tmpdb do
+              array = GrnMini::Array.new
+              array << {text: "aaa", number: 1}
+              array << {text: "bbb", number: 2}
+              array << {text: "ccc", number: 3}
+
+              # 色々と実験…
+            end
+            # Delete temporary database
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 明示的にカラムを指定する
+            - setup_columnsを使う
+            - テーブル1個なら基本不要
+
+            ```ruby
+            GrnMini::tmpdb do
+              array = GrnMini::Array.new
+
+              # ダミーデータを設定する
+              array.setup_columns(
+                filename: "",
+                int:      0,
+                float:    0.0,
+                time:     Time.new,
+                )
+
+              # データの追加
+              array << {filename: "a.txt", int: 1, float: 1.5, time: Time.at(1999)}
+            end
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 複数テーブルの連携
+            - tableを渡し合う
+
+            ```ruby
+users = GrnMini::Hash.new("Users")
+articles = GrnMini::Hash.new("Articles")
+
+users.setup_columns(name: "")
+articles.setup_columns(author: users, text: "")
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 複数テーブルの連携(2)
+
+            ```ruby
+users["aaa"] = {name: "Mr.A"}
+users["bbb"] = {name: "Mr.B"}
+
+articles["aaa:1"] = {author: users["aaa"], text: "111"}
+articles["aaa:2"] = {author: users["aaa"], text: "222"}
+articles["bbb:1"] = {author: users["bbb"], text: "111"}
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 複数テーブルの連携(3)
+
+            ```ruby
+# 著者がMr.Aで本文に'1'を含む記事
+articles.select("author.name:Mr.A text:@1")  #=> ["aaa:1"]
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## もっと知りたい
+
+            [https://github.com/ongaeshi/grn_mini](https://github.com/ongaeshi/grn_mini)
+
+            - 複雑な検索
+            - レコードの削除
+            - ソート
+            - グルーピング
+            - スニペット
+            - ページネーション
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            # grn_miniのメリット
+            ## つまりはRroongaの
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Rubyのライブラリで取得出来るものだったら何でも全文検索出来る
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## grn_miniで気軽に全文検索
+            - Rubyにはすでに豊富なライブラリがある
+            - Twitterのタイムライン
+            - GitHubのログ
+            - などなど
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## ありがとうございました
+
+            - URL: [https://github.com/ongaeshi/grn_mini](https://github.com/ongaeshi/grn_mini)
+            - Created by [ongaeshi](http://ongaeshi.me)
+
+            ![logo](http://www.gravatar.com/avatar/6377451175704e2d367ce508bffc1fa5)
+          </script>
+        </section>
+
+	  </div>
+
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.min.js"></script>
+
+	<script>
+
+	  // Full list of configuration options available here:
+	  // https://github.com/hakimel/reveal.js#configuration
+	  Reveal.initialize({
+	  controls: false,
+	  progress: true,
+	  history: true,
+	  center: true,
+
+	  theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+	  transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+	  // Parallax scrolling
+	  // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+	  // parallaxBackgroundSize: '2100px 900px',
+
+	  // Optional libraries used to extend on reveal.js
+	  dependencies: [
+	  { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+	  { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	  { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	  { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+	  { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+	  { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+	  ]
+	  });
+
+	</script>
+
+  </body>
+</html>

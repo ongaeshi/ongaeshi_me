@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+	<meta charset="utf-8">
+
+	<title>Groonga+Rubyで作れます(詳細編)</title>
+
+	<meta name="description" content="GroongaとRubyで作ったものの内部実装などを紹介します">
+	<meta name="author" content="ongaeshi">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="css/reveal.min.css">
+	<link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+	<!-- For syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+	<script>
+	  if( window.location.search.match( /print-pdf/gi ) ) {
+	  var link = document.createElement( 'link' );
+	  link.rel = 'stylesheet';
+	  link.type = 'text/css';
+	  link.href = 'css/print/pdf.css';
+	  document.getElementsByTagName( 'head' )[0].appendChild( link );
+	  }
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+  </head>
+
+  <body>
+
+	<div class="reveal">
+
+	  <!-- Any section element inside of this container is displayed as a slide -->
+	  <div class="slides">
+        <section data-markdown>
+          <script type="text/template">
+            # Groonga+Ruby
+            ## で作れます(詳細編)
+
+            <img src="image/groonga-logo.png" class="" alt="" style="width: 400px"/>
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 詳細編！
+
+            - Milkodeの具体的な実装方法を紹介します
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 概要
+
+            - Milkodeのテーブル構造
+            - どうやって行を絞り込む？
+            - トークナイザーの設定
+            - ドリルダウン
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            # Milkodeの<br/>テーブル構造
+          </script>
+        </section>
+
+        <section>
+          <h2>ソースコードのテーブル<br/>(documents)</h2>
+
+          <table>
+            <thead>
+              <tr><th>カラム名</th><th>型</th><th>説明</th><th>実例</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>path</td><td>string</td><td>ファイルの絶対パス</td><td>/path/to/proj/src/aaa.txt</td></tr>
+              <tr><td>package</td><td>string</td><td>パッケージ名</td><td>proj</td></tr>
+              <tr><td>restpath</td><td>string</td><td>パッケージ名以降のパス</td><td>src/aaa.txt</td></tr>
+              <tr><td>content</td><td>text</td><td>ファイルの内容</td><td>aaa\nbbb\nccc</td></tr>
+              <tr><td>timestamp</td><td>time</td><td>ファイルのタイムスタンプ</td><td>2012-11-21 23:26:00 +0900</td></tr>
+              <tr><td>suffix</td><td>text</td><td>拡張子</td><td>txt</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## documentsの用途
+
+            - 1ファイル = 1レコード
+            - 全プロジェクトが1つのテーブルに集約される
+            - 拡張子は専用カラムを作成
+              - ソースコード検索にとって重要
+              - suffix:c で *.cpp にヒットしないように
+          </script>
+        </section>
+
+        <section>
+          <h2>パッケージのテーブル<br/>(packages)</h2>
+
+          <table>
+            <tr><th>カラム名</th><th>型</th><th>説明</th><th>実例</th></tr>
+            <tr><td>name</td><td>string</td><td>パッケージ名</td><td>proj</td></tr>
+            <tr><td>directory</td><td>string</td><td>パッケージの実体パス</td><td>/path/to/proj</td></tr>
+            <tr><td>addtime</td><td>time</td><td>追加時刻</td><td></td></tr>
+            <tr><td>updatetime</td><td>time</td><td>更新時刻</td><td></td></tr>
+            <tr><td>viewtime</td><td>time</td><td>最終閲覧時刻</td><td></td></tr>
+            <tr><td>favtime</td><td>time</td><td>お気に入りに設定した時刻</td><td></td></tr>
+          </table>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## packagesの用途
+
+            - ホーム画面の更新履歴
+            - パッケージ一覧
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            # どうやって<br/>行を絞り込む？
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 全文検索はキーワードに<br/>マッチするファイルしか<br/>見つけられない
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 行の絞り込み
+
+            1. Rroongaで可能性のあるレコードを絞り込み
+            2. 絞り込んだレコードを1行ずつRubyで検索
+              - grep などの外部ツールを使う場合も
+            3. 目的の1行を見つけ出す
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            # トークナイザーの設定
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## TokenBigramSplitSymbol<br/>AlphaDigit
+
+            1. TokenBigramSplitSymbolAlphaDigitを使用
+            1. TokenBigramだとアルファベットや記号は分割しない
+              - 'robo123'は'robo123'のまま
+            1. コード検索の場合は、'robo123'に'robo'や'123'でマッチした方がよい 
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            # ドリルダウン
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## ドリルダウンとは？
+
+            - SQLでいう GROUP BY
+            - パッケージ、拡張子、ディレクトの絞り込みに
+
+            ![drilldown](image/slide-groonga04-01.png)
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Rroongaでドリルダウン
+
+            Rubyらしく書けます
+
+            ```ruby
+            # Rroongaのテーブルを検索
+            result = table.select {|record| ... }
+
+            # 結果に対してgroupメソッドを呼ぶ
+            drilled = result.group("suffix")   # "suffix"カラムにドリルダウン!!
+
+            # 先頭を取得
+            r = drilled.first
+
+            # マッチ数とキーを取得
+            p [r.n_sub_records, r.key] #=> [356, "md"]
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## 整理すると
+
+            MilkodeではUtil::drilldownというメソッドになりました。
+
+            ```ruby
+            # ドリルダウン結果を配列で返す(マッチ数、降順)
+            # column .. カラム名
+            # num .. 取得したい結果の数
+            def self.drilldown(result, column, num = nil)
+              drilled = result.group(column).map {|record|
+                [record.n_sub_records, record.key]
+              }.sort_by {|a|
+                a[0]
+              }.reverse
+
+              num ? drilled[0, num] : drilled
+            end
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## ひっかかったこと
+
+            - 拡張子(suffix)が(何故か)textカラムだったのでドリルダウン対象に出来なかった。
+            - 1.4でstringカラムに変更したのでmilk rebuild --all が必要になってしまった。
+            - 将来的にドリルダウンしたいものはカラム種類に気を付けましょう。
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## まとめ
+
+            - Rroonga(Groonga)でドリルダウンは簡単、高速
+            - ドリルダウンしたい要素のカラム種類には気をつける
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## ありがとうございました
+
+            - URL: [https://github.com/ongaeshi/milkode](https://github.com/ongaeshi/milkode)
+            - Created by [ongaeshi](http://ongaeshi.me)
+
+            ![logo](http://www.gravatar.com/avatar/6377451175704e2d367ce508bffc1fa5)
+          </script>
+        </section>
+
+	  </div>
+
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.min.js"></script>
+
+	<script>
+
+	  // Full list of configuration options available here:
+	  // https://github.com/hakimel/reveal.js#configuration
+	  Reveal.initialize({
+	  controls: false,
+	  progress: true,
+	  history: true,
+	  center: true,
+
+	  theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+	  transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+	  // Parallax scrolling
+	  // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+	  // parallaxBackgroundSize: '2100px 900px',
+
+	  // Optional libraries used to extend on reveal.js
+	  dependencies: [
+	  { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+	  { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	  { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	  { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+	  { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+	  { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+	  ]
+	  });
+
+	</script>
+
+  </body>
+</html>

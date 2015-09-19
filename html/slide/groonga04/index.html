@@ -1,0 +1,291 @@
+<!--
+Milkode2013年の歩み
+
+Authors: ongaeshi
+
+URL: http://milkode.ongaeshi.me/slide/groonga04
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Milkode2013年の歩み</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/milkode_logo.png"></span>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground">
+    <!-- <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside> -->
+    <aside><img src="images/MilkodeIcon135.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>自己紹介</h2>
+    </hgroup>
+
+    <article>
+      <p><img src='images/ongaeshi.jpg' /></p>
+
+      <p style="font-size: 50px">ongaeshi (おんがえし)</p>
+      <ul>
+        <li>職業プログラマです
+        <li>趣味でソフトウェアを作って公開しています
+        <li>ホームページ : <a href="http://ongaeshi.me">http://ongaeshi.me</a>
+      </ul>
+
+      <h3>最近作ったもの</h3>
+      <ul>
+        <li>RubyKokuban (mruby+openFramework)
+        <li>mruby Code Search (mrubyソースコード検索)
+        <li>FireLink (Firefoxアドオン)
+      </ul>
+    </article>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>アジェンダ</h2>
+    </hgroup>
+    <article>
+      <ul style="font-size: 50px">
+        <li>Milkodeって何？</li>
+        <li>デモ</li>
+        <li>今年新たに使ったGroongaの機能</li>
+        <li>2014年の抱負</li>
+      </ul>
+    </article>
+  </slide>
+  
+  <slide class="segue dark nobackground">
+    <!-- <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside> -->
+    <hgroup class="auto-fadein">
+      <h2>Milkodeって何？</h2>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ソースコードに特化した検索エンジンです</h2>
+    </hgroup>
+    
+    <article>
+      <p>
+        <img style='height: 400px' src='images/milkode_demo.jpg'>
+      </p>
+      <ul>
+        <li>ローカルやWeb上にあるソースコードを登録して高速に検索
+        <li>検索エンジン&amp;ストレージとしてGroonga(Rroonga)を採用
+        <li>Ruby + Rroonga だけでどこまで出来るのか？の一例として
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>特徴は？</h2>
+    </hgroup>
+    
+    <article>
+      <ul>
+        <li>高速 (100,000ファイル位であれば1〜2秒以内で検索)
+        <li>行指向 (AND検索)
+        <li>エディタでもブラウザでも
+        <li>パッケージ名、拡張子、ディレクトリ名でドリルダウン <b><span class="red">New!!</span></b></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>2013年の歩み</h2>
+    </hgroup>
+
+    <article>
+      <ul>
+        <li>01-29 TravisCIサポート、svnに対応 (0.9)</li>
+        <li>03-28 複数行の検索に対応 (0.9.9)</li>
+        <li>05-08 Ruby2.0対応 (0.9.9.9)</li>
+        <li>05-12 Milkode 1.0!</li>
+        <li>06-11 るびきちさんに突っ込みを頂いてgmilkを高速化</li>
+        <li>08-10 ctagsとの連携 (1.2)</li>
+        <li>09-16 GNUの<a href="http://www.gnu.org/software/global/links.html">'Source code reading' related sites</a>で紹介される(何故？)</li>
+        <li>10-01 mruby Code Search の作成開始</li>
+        <li>10-03 国際化のプルリクを髙橋さんから頂く</li>
+        <li>10-05 GitHubボタンを追加、キーワードのマッチ箇所をハイライト (1.3)</li>
+        <li>11-29 ドリルダウン、国際化 (1.4) - <b><span class="red">Today!!</span></b></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>デモ</h2>
+    </hgroup>
+    <article>
+      <p>
+        <img style='height: 400px' src='images/milkode_screenshot_00.jpg'>
+      </p>
+      <ul>
+        <li>http://mruby-code-search.ongaeshi.me
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>今年新たに使ったGroongaの機能</h2>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ドリルダウン</h2>
+    </hgroup>
+    <article>
+      <p>パッケージ、拡張子、ディレクトリによる絞り込み</p>
+      <img style='height: 400px' src='images/slide-groonga04-01.png'>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Rroongaでドリルダウンを使うには？</h2>
+    </hgroup>
+    <article>
+      <p>とっても簡単でした、早く対応すればよかったです。</p>
+      <pre class="prettyprint" data-lang="ruby">
+   # Rroongaのテーブルを検索
+   result = table.select {|record| ... }
+
+   # 結果に対してgroupメソッドを呼ぶ
+   drilled = result.group("suffix")   # "suffix"カラムにドリルダウン!!
+
+   # 先頭を取得
+   r = drilled.first
+
+   # マッチ数とキーを取得
+   p [r.n_sub_records, r.key] #=> [356, "md"]
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>整理すると</h2>
+    </hgroup>
+    <article>
+      <p>MilkodeではUtil::drilldownというメソッドになりました。</p>
+      <pre class="prettyprint" data-lang="ruby">
+    # ドリルダウン結果を配列で返す(マッチ数、降順)
+    # column .. カラム名
+    # num .. 取得したい結果の数
+    def self.drilldown(result, column, num = nil)
+      drilled = result.group(column).map {|record|
+        [record.n_sub_records, record.key]
+      }.sort_by {|a|
+        a[0]
+      }.reverse
+
+      num ? drilled[0, num] : drilled
+    end
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ひっかかったこと</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>拡張子(suffix)が(何故か)textカラムだったのでドリルダウン対象に出来なかった。</li>
+        <li>1.4でstringカラムに変更したのでmilk rebuild --all が必要になってしまった。</li>
+        <li>将来的にドリルダウンしたいものはカラム種類に気を付けましょう。</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>まとめると</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Rroonga(Groonga)でドリルダウンは超簡単なのでみんなやるといいよ
+        <li>ドリルダウンしたい要素のカラム種類には気をつけよう
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>2014年の抱負</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>検索機能の向上(サジェスト検索やりたい)</li>
+        <li>UIの改善(デザインセンスが欲しいです)</li>
+        <li>海外の人にも使ってもらいたい(どこで宣伝すればいいんだろう？)</li>
+      </ul>
+
+      <p>分からないことだらけです。みなさまどうかお助け下さい。</p>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/ongaeshi.jpg"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>ありがとうございました</h2>
+      <p>是非Milkodeに触れてみてください。</br>
+        よかったらこの後の懇親会などで感想お聞かせ下さい。</p>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
