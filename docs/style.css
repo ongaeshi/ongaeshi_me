@@ -101,54 +101,11 @@ canvas {
   padding: 8px;
 }
 
-.rainbow-letters span:nth-child(10n + 1),
-.red {
-  color: #ef5350;
-}
-
-.rainbow-letters span:nth-child(10n + 2),
-.light-purple {
-  color: #ab47bc;
-}
-
-.rainbow-letters span:nth-child(10n + 3),
-.dark-purple {
-  color: #651fff;
-}
-
-.rainbow-letters span:nth-child(10n + 5),
-.dark-blue {
-  color: #3949ab;
-}
-
-.rainbow-letters span:nth-child(10n + 4),
-.blue {
-  color: #2196f3;
-}
-
-.rainbow-letters span:nth-child(10n + 6),
-.light-blue {
-  color: #00bcd4;
-}
-
-.rainbow-letters span,
-.green {
-  color: #4caf50;
-}
-
-.rainbow-letters span:nth-child(10n + 8),
-.yellow {
-  color: #ffc107;
-}
-
-.rainbow-letters span:nth-child(10n + 9),
-.pink {
-  color: #e96290;
-}
-
-.rainbow-letters span:nth-child(10n + 10),
-.orange {
-  color: #ff8f00;
+.rainbow-letters {
+  color: #c82925;
+  /* color: #0f0f0f; */
+  /* color: #e3ea54; */
+  /* color: #75e497; */
 }
 
 .social-footer {
