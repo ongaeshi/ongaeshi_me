@@ -29,6 +29,11 @@ hr {
 
 section {
   margin: 30px;
+  text-align: center;
+}
+
+section ul {
+  list-style: none;
 }
 
 canvas {
