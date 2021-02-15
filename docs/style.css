@@ -29,7 +29,6 @@ hr {
 
 section {
   margin: 30px;
-  /* text-align: center; */
 }
 
 section ul {
@@ -53,28 +52,6 @@ canvas {
   color: #222;
 }
 
-.speaking-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.speaking a {
-  color: #444;
-  display: block;
-  line-height: 1.5;
-}
-
-.speaking p {
-  line-height: 1;
-  font-size: 0.9em;
-}
-
-.writing a {
-  display: block;
-  text-decoration: underline;
-  color: #444;
-  margin-top: 6px;
-}
 
 .social-links a {
   font-size: 25px;
@@ -110,10 +87,6 @@ canvas {
   /* color: #0f0f0f; */
   /* color: #e3ea54; */
   /* color: #75e497; */
-}
-
-.social-footer {
-  text-align: center;
 }
 
 ::selection {
