@@ -78,6 +78,11 @@ canvas {
   letter-spacing: -4px;
 }
 
+.rainbow-letters a {
+  color: #c82925;
+  text-decoration: none;
+}
+
 .big-space {
   padding: 8px;
 }
