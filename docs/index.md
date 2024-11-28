@@ -9,6 +9,9 @@ hero:
     alt: ongaeshi
   tagline: I make things.
   actions:
+    - theme: brand
+      text: History
+      link: /history
     - theme: alt
       text: GitHub
       link: https://github.com/ongaeshi
