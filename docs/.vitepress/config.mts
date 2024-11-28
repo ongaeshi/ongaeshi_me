@@ -4,6 +4,13 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "ONGAESHI",
   description: "I make things.",
+  head: [
+    [
+      'style',
+      {},
+      ':root { --vp-home-hero-name-color: #c82925; }'
+    ]
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
