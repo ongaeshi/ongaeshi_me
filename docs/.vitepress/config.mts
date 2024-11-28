@@ -8,7 +8,7 @@ export default defineConfig({
     [
       'style',
       {},
-      ':root { --vp-home-hero-name-color: #c82925; }'
+      ':root { --vp-home-hero-name-color: #c55553; }'
     ]
   ],
   themeConfig: {
