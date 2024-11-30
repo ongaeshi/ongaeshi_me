@@ -35,13 +35,13 @@ features:
   - icon:
       src: https://i.gyazo.com/0aa7908931f32799b49503d24ea1456f.png
     title: Ruby on Browser
-    details: Ruby on Browser using Ruby WASM/WASI
+    details: Ruby on Browser using Ruby WASM/WASI.
     link: https://rubyonbrowser.ongaeshi.me
   - icon:
       src: https://i.gyazo.com/0aa7908931f32799b49503d24ea1456f.png
-    title: Rconv
-    details: Calculator made with Ruby WASM/WASI
-    link: https://rconv.ongaeshi.me
+    title: p5.rb
+    details: p5.js with ruby.wasm.
+    link: https://p5rb.ongaeshi.me/editor/
   - icon:
       src: /image/runa_icon.png
     title: Runa
