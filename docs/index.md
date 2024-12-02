@@ -21,9 +21,9 @@ hero:
     - theme: alt
       text: Twitter
       link: https://x.com/ongaeshi
-    # - theme: alt
-    #   text: Zenn
-    #   link: https://zenn.dev/ongaeshi
+    - theme: alt
+      text: Zenn
+      link: https://zenn.dev/ongaeshi
     # - theme: alt
     #   text: Scrapbox
     #   link: https://scrapbox.io/ongaeshi/
