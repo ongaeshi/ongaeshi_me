@@ -164,12 +164,12 @@
 - 06/16 [rubywho](https://github.com/ongaeshi/rubywho)
 - 04/21 [FireLink](http://firelink.ongaeshi.me)
 - 04/03 [寄付ったー](http://kifutter.ongaeshi.me) (停止中)
-- 02/28 [LocalMoviePlayer](./LocalMoviePlayer)
-- 02/18 [HTML5_Step_Tutorial](./HTML5_Step_Tutorial)
+- 02/28 LocalMoviePlayer
+- 02/18 HTML5_Step_Tutorial
 - 02/17 [rroonga](http://www44.atwiki.jp/ongaeshi/pages/14.html)
 
 ## 2010
-- 08/02 [gren](http://gren.ongaeshi.me) ([demo](./gren))
+- 08/02 [gren](http://gren.ongaeshi.me)
 - 06/24 [tidtools](https://github.com/ongaeshi/tidtools)
 - 02/21 [ScratchGrid](http://d.hatena.ne.jp/tuto0621/20100221/1266746963)
 - 01/24 [LinkBrowser](http://d.hatena.ne.jp/tuto0621/20100124/1264326786)
