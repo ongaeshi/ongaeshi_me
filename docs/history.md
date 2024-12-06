@@ -1,6 +1,7 @@
 # HISTORY
 
 ## 2024
+- 12/03 [Web site](https://www.ongaeshi.me) renewal with VitePress
 - 07/03 [blog_command](https://github.com/ongaeshi/blog_command) ([blog](https://ongaeshi.hatenablog.com/entry/2024/07/03/230456))
 - 05/13 [json_canvas](https://github.com/ongaeshi/json_canvas) ([blog](https://ongaeshi.hatenablog.com/entry/2024/05/13/211442))
 
