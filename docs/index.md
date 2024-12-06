@@ -51,7 +51,7 @@ features:
       src: /image/rubypico_icon.png
     title: RubyPico
     details: Ruby Programming Environment in iOS 
-    link: https://rubyonbrowser.ongaeshi.me
+    link: https://rubypico.ongaeshi.me
   - icon:
       src: /image/milkode_icon.png
     title: Milkode
