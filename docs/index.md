@@ -12,6 +12,9 @@ hero:
     - theme: brand
       text: History
       link: /history
+    - theme: brand
+      text: Links
+      link: /links
     - theme: alt
       text: GitHub
       link: https://github.com/ongaeshi
@@ -20,22 +23,7 @@ hero:
       link: https://ongaeshi.hatenablog.com/
     - theme: alt
       text: TIL
-      link: https://github.com/til
-    - theme: alt
-      text: Twitter
-      link: https://x.com/ongaeshi
-    - theme: alt
-      text: Zenn
-      link: https://zenn.dev/ongaeshi
-    # - theme: alt
-    #   text: Zenn
-    #   link: https://zenn.dev/ongaeshi
-    # - theme: alt
-    #   text: Scrapbox
-    #   link: https://scrapbox.io/ongaeshi/
-    - theme: alt
-      text: mail
-      link: mailto:ongaeshi0621@gmail.com
+      link: https://github.com/ongaeshi/til
 
 features:
   - icon:
