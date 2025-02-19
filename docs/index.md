@@ -22,6 +22,9 @@ hero:
       text: blog
       link: https://ongaeshi.hatenablog.com/
     - theme: alt
+      text: Twitter
+      link: https://twitter.com/ongaeshi
+    - theme: alt
       text: TIL
       link: https://github.com/ongaeshi/til
 
