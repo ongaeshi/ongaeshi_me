@@ -10,6 +10,9 @@ hero:
   tagline: I make things.
   actions:
     - theme: brand
+      text: Notes
+      link: https://publish.obsidian.md/ongaeshi
+    - theme: brand
       text: History
       link: /history
     - theme: brand
