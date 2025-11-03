@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Notes
-      link: https://publish.obsidian.md/ongaeshi
+      link: https://notes.ongaeshi.me
     - theme: brand
       text: History
       link: /history
