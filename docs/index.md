@@ -16,6 +16,9 @@ hero:
       text: History
       link: /history
     - theme: brand
+      text: Works
+      link: /works/
+    - theme: brand
       text: Links
       link: /links
     - theme: alt
