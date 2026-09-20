@@ -10,7 +10,10 @@ Ruby製のコマンドラインツール。コピー時に特定の文字列を�
 
 ## 最初のプロンプト
 
-``text
-``
+```text
+コンソールから中のテキストと合わせて hyper_copy コマンドを Ruby で作って。
+hyper_copy --from FooBar --to AaaBbb --from2 フー --to2 バー CmdFoo.cs CmdBar.cs
+デフォルトで Preserve Case 有効となる。(FooBar -> AaaBbb, fooBar -> aaaBar, FOOBAR -> AAABBB)
+```
 
 ## メモ・所感

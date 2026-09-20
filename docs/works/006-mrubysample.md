@@ -10,7 +10,9 @@ C#（MRubyCS）とRaylib（Raylib_cs）を使ったサンプルプロジェク�
 
 ## 最初のプロンプト
 
-``text
-``
+```text
+https://github.com/hadashiA/MRubyCS とかいうプロジェクトがある。試しに少し動かしてみたい。
+ゲームエンジンなどと組み合わせてrubyスクリプトからグラフィックなどを呼べるか,w
+```
 
 ## メモ・所感

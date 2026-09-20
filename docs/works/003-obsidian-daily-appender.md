@@ -10,7 +10,13 @@
 
 ## 最初のプロンプト
 
-``text
-``
+```text
+obsidianのデイリーノートに連続で複数行入力できるTUIツールをC#を使って作成したい。
+- ソフトウェア名: Obsidian Daily Appender
+- コマンド名: oda.exe (Obsidian Daily Appender の略)
+- oda で実行するとTUIツールが起動
+- Enterで入力した行を送信。Shift+Enterで複数行入力ができるようにしたい。
+- 基本的な入出力の仕様は C:\Users\ongaeshi\Code\obsidian_tool\tweet.rb を参考にする。(obsidian CLI を経由して入力する形でOK)
+```
 
 ## メモ・所感

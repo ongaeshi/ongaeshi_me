@@ -10,7 +10,9 @@ React + TypeScriptで作成されたWebアプリ。音声で指示された位�
 
 ## 最初のプロンプト
 
-``text
-``
+```text
+このディレクトリ (c:\Users\ongaeshi\Doc\notes) に、新たに hougan-ichi-app というプロジェクトディレクトリを作成し、Reactでアプリを構築します。
+ViteによりReactプロジェクトを新規作成します。
+```
 
 ## メモ・所感
